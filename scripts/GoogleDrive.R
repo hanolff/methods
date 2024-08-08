@@ -8,6 +8,9 @@ renv::restore()  # restore required libraries for this project
 library("googledrive")
 library("tidyverse")
 
+# set your local working directory for temporary files
+setwd("C:/Users/holff/downloads") # your csv files will be downloaded here, keep outside your Github project
+
 # Authorize (authenticate) tidyverse access to your Google Drive 
 googledrive::drive_auth()
 # at the first time, respond with 1 for a new authentication process and go to your browser, 
@@ -31,7 +34,15 @@ googledrive::drive_auth(email="h.olff@rug.nl")
 # define the file  ID of the CSV file to google drive, 
 # it may be easy to use the same name as your file on google drive with _id added to it
 # download and reading of google drive file EVI2001_2023.csv with file ID 13DVqqDp_SpwshIPk3YIIh6iagkjTUF7B
+# this file is "anyone with the link can view" - so anyone can read it
 file_id<- "16kDi6DHH2moJ6Y7_APMk3cU64nuy_04S"  # define ID
 file<-googledrive::drive_get(googledrive::as_id(file_id)) # get metadata
 download_link<-drive_download(file, overwrite = TRUE)
-EVIdata<-read_csv(download_link$local_path)
+EVIdata<-read_csv(download_link$local_path, show_col_types = FALSE)
+
+# read a file from the shared drive PhD_Yuhong, only access for Yuhong, Michiel, Han
+# https://drive.google.com/file/d/1B8I63661vgQhmkTcF-dX99qLC8KZeMiG/view?usp=drive_link
+file_id<- "1B8I63661vgQhmkTcF-dX99qLC8KZeMiG"  # define ID
+file<-googledrive::drive_get(googledrive::as_id(file_id)) # get metadata
+download_link<-drive_download(file, overwrite = TRUE)
+bold_library_Magnoliophyta_Kenya<-read.csv(download_link$local_path) |> as_tibble()
