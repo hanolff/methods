@@ -68,7 +68,6 @@ file_name<-file_info$name # extract the file name
 file_name_short<-sub("\\..*", "", file_name)  # cut off the .csv part of the name
 destination_path<-file.path(data_dir,file_name)  # make the folder+name path
 googledrive::drive_download(file_info, path=destination_path, overwrite = TRUE) # download the file
-filename<-readr::read_csv(destination_path, show_col_types = FALSE) #read the file in your script
 assign(file_name_short,readr::read_csv(destination_path, show_col_types = FALSE)) #read the file in your script as a dataframe (tibble)
 ```
 The same procedure can be used for a file that is on any google drive with only access by specific people. Just change the file_id. 
