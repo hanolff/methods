@@ -1,5 +1,4 @@
-# the best way to read a file depends on the type of file
-# if the file is very big (more than 10 million cells (rowsxcolumns) than store the data in a .csv file on your google drive
+
 
 rm(list = ls())
 # The library GoogleDrive allows to read from files on a personal or shared google drive, including authentication. 
@@ -8,8 +7,9 @@ renv::restore()  # restore required libraries for this project
 library("googledrive")
 library("tidyverse")
 
-# set your local working directory for temporary files
-setwd("C:/Users/holff/downloads") # your csv files will be downloaded here, keep outside your Github project
+# set your local working directory for data files, as the "data" subfolder of your local github project
+setwd(file.path(getwd(), "data"))
+# this folder has been excluded from syncing with Git as because is added to the .gitignore file
 
 # Authorize (authenticate) tidyverse access to your Google Drive 
 googledrive::drive_auth()
